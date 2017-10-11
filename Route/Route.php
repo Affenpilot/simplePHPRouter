@@ -25,7 +25,7 @@ class Route
     public static $path;
 
     /**
-     * Init routing
+     * Init routing.
      */
     public static function init()
     {
@@ -33,8 +33,8 @@ class Route
 
         self::$path = '';
 
-        if(isset($parsed_url['path'])){
-            self::$path = trim($parsed_url['path'],'/');
+        if (isset($parsed_url['path'])) {
+            self::$path = trim($parsed_url['path'], '/');
         }
     }
 
@@ -46,7 +46,7 @@ class Route
     {
         array_push(self::$routes, [
             'expression'=> $expression,
-            'function'  => $function
+            'function'  => $function,
         ]);
     }
 
@@ -59,16 +59,16 @@ class Route
     }
 
     /**
-     * Run routing
+     * Run routing.
      */
     public static function run()
     {
         $route_found = false;
         
-        foreach(self::$routes as $route) {
-            if(Configuration::get('basepath')) {
+        foreach (self::$routes as $route) {
+            if (Configuration::get('basepath')) {
                 //Add / if its not empty
-                if($route['expression'] !=''){
+                if ($route['expression'] !='') {
                     $route['expression'] = '/'.$route['expression'];
                 }
                 $route['expression'] = '('.Configuration::get('basepath').')'.$route['expression'];
@@ -81,7 +81,7 @@ class Route
             $route['expression'] = $route['expression'].'$';
 
             //check match
-            if(preg_match('#'.$route['expression'].'#',self::$path,$matches)){
+            if (preg_match('#'.$route['expression'].'#',self::$path,$matches)) {
 
                 array_shift($matches);//Always remove first element. This contains the whole string
                 
@@ -95,8 +95,8 @@ class Route
             }
         }
         
-        if(!$route_found){
-            foreach(self::$routes404 as $route404){
+        if (!$route_found) {
+            foreach (self::$routes404 as $route404) {
                 call_user_func_array($route404, Array(self::$path));
             }
         }
