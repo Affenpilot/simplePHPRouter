@@ -81,18 +81,18 @@ class Route
             $route['expression'] = $route['expression'].'$';
 
             //check match
-            if (preg_match('#'.$route['expression'].'#',self::$path,$matches)) {
-                array_shift($matches);//Always remove first element. This contains the whole string
+            if (preg_match('#'.$route['expression'].'#', self::$path, $matches)) {
+                array_shift($matches); //Always remove first element. This contains the whole string
                 
                 if (Configuration::get('basepath')) {
-                    array_shift($matches);//Remove Basepath
+                    array_shift($matches); //Remove Basepath
                 }
 
                 call_user_func_array($route['function'], $matches);
                 $route_found = true;
             }
         }
-        
+
         if (!$route_found) {
             foreach (self::$routes404 as $route404) {
                 call_user_func_array($route404, [self::$path]);
