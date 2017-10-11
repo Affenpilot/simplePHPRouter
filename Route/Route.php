@@ -64,11 +64,11 @@ class Route
     public static function run()
     {
         $route_found = false;
-        
+
         foreach (self::$routes as $route) {
             if (Configuration::get('basepath')) {
                 //Add / if its not empty
-                if ($route['expression'] !='') {
+                if ($route['expression'] != '') {
                     $route['expression'] = '/'.$route['expression'];
                 }
                 $route['expression'] = '('.Configuration::get('basepath').')'.$route['expression'];
@@ -76,20 +76,18 @@ class Route
 
             //Add 'find string start' automatically
             $route['expression'] = '^'.$route['expression'];
- 
+
             //Add 'find string end' automatically
             $route['expression'] = $route['expression'].'$';
 
             //check match
             if (preg_match('#'.$route['expression'].'#',self::$path,$matches)) {
-
                 array_shift($matches);//Always remove first element. This contains the whole string
                 
-                if(Configuration::get('basepath')){
-                    
+                if (Configuration::get('basepath')) {
                     array_shift($matches);//Remove Basepath
-
                 }
+
                 call_user_func_array($route['function'], $matches);
                 $route_found = true;
             }
@@ -97,7 +95,7 @@ class Route
         
         if (!$route_found) {
             foreach (self::$routes404 as $route404) {
-                call_user_func_array($route404, Array(self::$path));
+                call_user_func_array($route404, [self::$path]);
             }
         }
     }

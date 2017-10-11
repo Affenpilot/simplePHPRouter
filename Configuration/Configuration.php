@@ -28,7 +28,7 @@ class Configuration
      */
     public static function get($key)
     {
-        if(array_key_exists($key, self::$registry)) {
+        if (array_key_exists($key, self::$registry)) {
             return self::$registry[$key];
         }
 
