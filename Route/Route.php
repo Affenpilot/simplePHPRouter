@@ -83,7 +83,7 @@ class Route
             //check match
             if (preg_match('#'.$route['expression'].'#', self::$path, $matches)) {
                 array_shift($matches); //Always remove first element. This contains the whole string
-                
+
                 if (Configuration::get('basepath')) {
                     array_shift($matches); //Remove Basepath
                 }

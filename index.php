@@ -32,7 +32,7 @@ Route::add('test.html', function () {
     //Do something
     echo 'Hello from test.html';
 });
- 
+
 //complex route with parameter
 Route::add('user/(.*)/edit', function ($id) {
     //Do something
@@ -46,13 +46,13 @@ Route::add('foo/([0-9]*)/bar', function ($var1) {
 });
 
 //long route
-Route::add('foo/bar/foo/bar', function() {
+Route::add('foo/bar/foo/bar', function () {
     //Do something
     echo 'hehe :-)<br/>';
 });
 
 //crazy route with parameters (Will be triggered on the route pattern above too because it matches too)
-Route::add('(.*)/(.*)/(.*)/(.*)', function ($var1,$var2,$var3,$var4) {
+Route::add('(.*)/(.*)/(.*)/(.*)', function ($var1, $var2, $var3, $var4) {
     //Do something
     echo 'You have entered: '.$var1.' / '.$var2.' / '.$var3.' / '.$var4.'<br/>';
 });
@@ -60,9 +60,9 @@ Route::add('(.*)/(.*)/(.*)/(.*)', function ($var1,$var2,$var3,$var4) {
 //Add a 404 Not found Route
 Route::add404(function ($url) {
     //Send 404 Header
-    header("HTTP/1.0 404 Not Found");
+    header('HTTP/1.0 404 Not Found');
     echo '404 :-(<br/>';
     echo $url.' not found!';
 });
- 
+
 Route::run();
